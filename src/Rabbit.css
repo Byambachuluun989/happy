@@ -1,0 +1,403 @@
+/* Cute pastel color palette */
+:root {
+  --rabbit-white: #fff5f7;
+  --rabbit-pink: #ffb3d9;
+  --rabbit-light-pink: #ffd9e8;
+  --rabbit-peach: #ffc9b8;
+  --rabbit-lavender: #e6d9ff;
+  --rabbit-mint: #d9f5f0;
+  --rabbit-cream: #fffaf0;
+}
+
+.rabbit-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, var(--rabbit-lavender) 0%, var(--rabbit-mint) 100%);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Box styling */
+.box {
+  position: relative;
+  width: 180px;
+  height: 160px;
+  margin-bottom: 40px;
+  perspective: 1000px;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.box:hover {
+  transform: scale(1.05);
+}
+
+.box-body {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.box-side {
+  position: absolute;
+  background: linear-gradient(135deg, #ffccdb 0%, #ffb3d9 100%);
+  border: 2px solid #ff99c8;
+  box-shadow: inset 0 2px 5px rgba(255, 255, 255, 0.3);
+}
+
+.box-side.left {
+  left: 0;
+  top: 20px;
+  width: 8px;
+  height: 120px;
+  background: linear-gradient(90deg, #ff99c8 0%, #ffb3d9 100%);
+  border-radius: 2px 0 0 2px;
+}
+
+.box-side.right {
+  right: 0;
+  top: 20px;
+  width: 8px;
+  height: 120px;
+  background: linear-gradient(90deg, #ffb3d9 0%, #ff99c8 100%);
+  border-radius: 0 2px 2px 0;
+}
+
+.box-front {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #ffccdb 0%, #ffb3d9 100%);
+  border: 2px solid #ff99c8;
+  border-radius: 8px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1), inset 0 2px 5px rgba(255, 255, 255, 0.4);
+}
+
+.box-top-edge {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(90deg, #ff99c8 0%, #ffc9b8 50%, #ff99c8 100%);
+  border-radius: 8px 8px 0 0;
+}
+
+/* Box lid */
+.box-lid {
+  position: absolute;
+  top: -20px;
+  left: 0;
+  width: 100%;
+  height: 25px;
+  background: linear-gradient(135deg, #ffc9b8 0%, #ffb3d9 100%);
+  border: 2px solid #ff99c8;
+  border-radius: 8px 8px 2px 2px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15), inset 0 1px 3px rgba(255, 255, 255, 0.4);
+  transform-origin: bottom center;
+  transform: rotateX(0deg);
+  transition: transform 0.6s ease-out;
+  z-index: 10;
+}
+
+.lid-inside {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  right: 2px;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 2px;
+}
+
+.box.open .box-lid {
+  transform: rotateX(-90deg);
+}
+
+/* Rabbit styling */
+.rabbit {
+  position: absolute;
+  top: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  opacity: 1;
+  transition: transform 0.6s ease-out, opacity 0.6s ease-out;
+}
+
+.rabbit.pop-out {
+  transform: translateX(-50%) translateY(-60px) scale(1.1);
+  animation: popOut 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes popOut {
+  0% {
+    transform: translateX(-50%) translateY(0) scale(0.8);
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(-50%) translateY(-60px) scale(1.1);
+  }
+}
+
+/* Ears */
+.ears {
+  position: relative;
+  width: 50px;
+  height: 60px;
+  margin-bottom: -15px;
+  z-index: 5;
+}
+
+.ear {
+  position: absolute;
+  width: 18px;
+  height: 45px;
+  background: linear-gradient(90deg, #ffe0e8 0%, #ffccdb 50%, #ffe0e8 100%);
+  border: 2px solid #ffb3d9;
+  border-radius: 50%;
+  top: 0;
+  animation: earWiggle 0.5s ease-in-out infinite;
+}
+
+.ear.left-ear {
+  left: 8px;
+  animation-delay: 0s;
+}
+
+.ear.right-ear {
+  right: 8px;
+  animation-delay: 0.1s;
+}
+
+@keyframes earWiggle {
+  0%, 100% {
+    transform: rotate(-5deg);
+  }
+  50% {
+    transform: rotate(5deg);
+  }
+}
+
+/* Head */
+.head {
+  position: relative;
+  width: 60px;
+  height: 55px;
+  background: linear-gradient(135deg, #fff5f7 0%, #ffccdb 100%);
+  border-radius: 50%;
+  border: 2px solid #ffb3d9;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1), inset 0 2px 5px rgba(255, 255, 255, 0.5);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 3;
+}
+
+/* Eyes */
+.eyes {
+  position: absolute;
+  top: 18px;
+  width: 36px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.eye {
+  width: 12px;
+  height: 14px;
+  background: white;
+  border-radius: 50%;
+  border: 1px solid #ffb3d9;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: blink 3s ease-in-out infinite;
+}
+
+.pupil {
+  width: 6px;
+  height: 8px;
+  background: #333;
+  border-radius: 50%;
+}
+
+@keyframes blink {
+  0%, 90%, 100% {
+    height: 14px;
+  }
+  95% {
+    height: 2px;
+  }
+}
+
+/* Nose */
+.nose {
+  position: absolute;
+  top: 32px;
+  width: 8px;
+  height: 7px;
+  background: #ffb3d9;
+  border-radius: 50%;
+  animation: noseWiggle 0.4s ease-in-out infinite;
+}
+
+@keyframes noseWiggle {
+  0%, 100% {
+    transform: scaleX(1);
+  }
+  50% {
+    transform: scaleX(1.2);
+  }
+}
+
+/* Mouth - cute smile */
+.mouth {
+  position: absolute;
+  top: 40px;
+  width: 20px;
+  height: 10px;
+  border: 2px solid #ff99c8;
+  border-top: none;
+  border-radius: 0 0 20px 20px;
+}
+
+/* Body */
+.body {
+  position: relative;
+  width: 55px;
+  height: 40px;
+  background: linear-gradient(135deg, #fff5f7 0%, #ffe0e8 100%);
+  border-radius: 50%;
+  border: 2px solid #ffb3d9;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1), inset 0 1px 3px rgba(255, 255, 255, 0.5);
+  margin-top: -8px;
+  z-index: 1;
+}
+
+/* Paws */
+.paw {
+  position: absolute;
+  width: 14px;
+  height: 18px;
+  background: linear-gradient(135deg, #ffe0e8 0%, #ffccdb 100%);
+  border: 1.5px solid #ffb3d9;
+  border-radius: 50% 50% 40% 40%;
+  bottom: -8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.paw.left-paw {
+  left: 12px;
+  animation: pawBounce 0.6s ease-in-out infinite;
+}
+
+.paw.right-paw {
+  right: 12px;
+  animation: pawBounce 0.6s ease-in-out infinite;
+  animation-delay: 0.1s;
+}
+
+@keyframes pawBounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+/* Message */
+
+/* Note held by rabbit */
+.note {
+  position: absolute;
+  left: 50%;
+  bottom: -30px;
+  transform: translateX(-50%) rotate(-3deg);
+  background: #fffaf0;
+  color: #ff99c8;
+  border: 2px solid #ffb3d9;
+  border-radius: 10px;
+  padding: 10px 24px;
+  font-size: 20px;
+  font-weight: 600;
+  box-shadow: 0 2px 8px rgba(255, 179, 217, 0.15);
+  z-index: 10;
+  animation: notePop 0.7s cubic-bezier(0.34, 1.56, 0.64, 1);
+  text-align: center;
+  white-space: nowrap;
+}
+
+@keyframes notePop {
+  0% {
+    opacity: 0;
+    transform: translateX(-50%) scale(0.7) rotate(-10deg);
+  }
+  60% {
+    opacity: 1;
+    transform: translateX(-50%) scale(1.1) rotate(2deg);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(-50%) scale(1) rotate(-3deg);
+  }
+}
+
+/* Button styling */
+.cute-button {
+  background: linear-gradient(135deg, #ffb3d9 0%, #ffc9b8 100%);
+  border: 2px solid #ff99c8;
+  border-radius: 25px;
+  padding: 12px 30px;
+  font-size: 16px;
+  font-weight: 600;
+  color: white;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(255, 153, 200, 0.3);
+  margin-top: 30px;
+  animation: buttonPulse 2s ease-in-out infinite;
+}
+
+.cute-button:hover {
+  transform: scale(1.08);
+  box-shadow: 0 6px 16px rgba(255, 153, 200, 0.5);
+}
+
+.cute-button:active {
+  transform: scale(0.95);
+}
+
+@keyframes buttonPulse {
+  0%, 100% {
+    box-shadow: 0 4px 12px rgba(255, 153, 200, 0.3);
+  }
+  50% {
+    box-shadow: 0 4px 20px rgba(255, 153, 200, 0.5);
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .rabbit-container {
+    padding: 20px;
+  }
+
+  .message {
+    font-size: 20px;
+  }
+}
